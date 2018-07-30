@@ -60,43 +60,59 @@ name[6]="manganese sulfate monohydrate";
 name[7]="phosphoric acid 30%";
 name[8]="potassium nitrate";
 name[9]="zinc sulfate dihydrate";
-console.log("-------------------------HYDRO BUDDY------------------------");
-console.log("                    ***Console Version 1.0***                       \n ");
-console.log("   * Thử nghiệm trên tập hợp các loại phân:\n    + ammonium orthomolybdate\n    + Borid Acid\n    + calcium nitrate tetrahydrate\n    + copper nitrate hexahydrate\n    + iron dtpa\n    + magnesium nitrate hexahydrate\n    + manganese sulfate monohydrate\n    + phosphoric acid 30%\n    + potassium nitrate\n    + zinc sulfate dihydrate\n")
-console.log("   * Xin mời nhập các giá trị dưỡng chất sau:\n");
-var NO3 = readline.question("***Nhập hàm lượng N(NO3-):*** \n");
+console.log("----------------------------------HYDRO BUDDY---------------------------------");
+console.log("                    *********Console Version 1.0*********                       \n ");
+console.log("                    * Thử nghiệm trên tập hợp các loại phân:\n                     + ammonium orthomolybdate\n                     + Borid Acid\n                     + calcium nitrate tetrahydrate\n                     + copper nitrate hexahydrate\n                     + iron dtpa\n                     + magnesium nitrate hexahydrate\n                     + manganese sulfate monohydrate\n                     + phosphoric acid 30%\n                     + potassium nitrate\n                     + zinc sulfate dihydrate\n")
+console.log("                    * Xin mời nhập các giá trị dưỡng chất sau:\n");
+var NO3 = readline.question("*********************Nhập hàm lượng N(NO3-):********************* \n");
 input[0]=parseFloat(NO3);
-var NH4 = readline.question("***Nhập hàm lượng N(NH4+):*** \n");
+var NH4 = readline.question("*********************Nhập hàm lượng N(NH4+):********************* \n");
 input[1]=parseFloat(NH4);
-var P = readline.question("***Nhập hàm lượng P:*** \n");
+var P = readline.question("*********************Nhập hàm lượng P:********************* \n");
 input[2]=parseFloat(P);
-var K = readline.question("***Nhập hàm lượng K:*** \n");
+var K = readline.question("*********************Nhập hàm lượng K:********************* \n");
 input[3]=parseFloat(K);
-var Mg = readline.question("***Nhập hàm lượng Mg:*** \n");
+var Mg = readline.question("*********************Nhập hàm lượng Mg:********************* \n");
 input[4]=parseFloat(Mg);
-var Ca = readline.question("***Nhập hàm lượng Ca:*** \n");
+var Ca = readline.question("*********************Nhập hàm lượng Ca:********************* \n");
 input[5]=parseFloat(Ca);
-var S = readline.question("***Nhập hàm lượng S:*** \n");
+var S = readline.question("*********************Nhập hàm lượng S:********************* \n");
 input[6]=parseFloat(S);
-var Fe = readline.question("***Nhập hàm lượng Fe:*** \n");
+var Fe = readline.question("*********************Nhập hàm lượng Fe:********************* \n");
 input[7]=parseFloat(Fe);
-var Zn = readline.question("***Nhập hàm lượng Zn:*** \n");
+var Zn = readline.question("*********************Nhập hàm lượng Zn:********************* \n");
 input[8]=parseFloat(Zn);
-var Bo = readline.question("***Nhập hàm lượng B:*** \n");
+var Bo = readline.question("*********************Nhập hàm lượng B:********************* \n");
 input[9]=parseFloat(Bo);
-var Mn = readline.question("***Nhập hàm lượng Mn:*** \n");
+var Mn = readline.question("*********************Nhập hàm lượng Mn:********************* \n");
 input[10]=parseFloat(Mn);
-var Cu = readline.question("***Nhập hàm lượng Cu:*** \n");
+var Cu = readline.question("*********************Nhập hàm lượng Cu:********************* \n");
 input[11]=parseFloat(Cu);
-var Mo = readline.question("***Nhập hàm lượng Mo:*** \n");
+var Mo = readline.question("*********************Nhập hàm lượng Mo:********************* \n");
 input[12]=parseFloat(Mo);
-var Na = readline.question("***Nhập hàm lượng Na:*** \n");
+var Na = readline.question("*********************Nhập hàm lượng Na:********************* \n");
 input[13]=parseFloat(Na);
-var Si = readline.question("***Nhập hàm lượng Si:*** \n");
+var Si = readline.question("*********************Nhập hàm lượng Si:********************* \n");
 input[14]=parseFloat(Si);
-var Cl = readline.question("***Nhập hàm lượng Cl:*** \n");
+var Cl = readline.question("*********************Nhập hàm lượng Cl:********************* \n");
 input[15]=parseFloat(Cl);
-
+var ec_contribution=new Array(16);
+ec_contribution[0] = 71.46 / 14;
+ec_contribution[1] = 73 / 39;
+ec_contribution[2] = 57 / 31;
+ec_contribution[3] = 106 / 24.30;
+ec_contribution[4] = 119 / 40;
+ec_contribution[5] = 160 / 32;
+ec_contribution[6] = 108.0 / 56;
+ec_contribution[7] = 0;
+ec_contribution[8] = 0;
+ec_contribution[9] = 0;
+ec_contribution[10]= 0;
+ec_contribution[11]= 50.01 / 23;
+ec_contribution[12]= 100 / 28.09;
+ec_contribution[13]= 76.35 / 35.5;
+ec_contribution[14]= 0;
+ec_contribution[15]= 73.5 / 14;
 
 //tạo ma trận tính toán
 var A=[[0,0,1.186,0.948,0,1.093,0,0,1.3856,0],
@@ -141,25 +157,26 @@ for(var i=0;i<15;i++)
 var x=new Array(10);
 
 x=RMatrixSolveLS(A,15,10,B);
-console.log("\n************KHỐI LƯỢNG TÍNH TOÁN***********");
+console.log("\n                     ************KHỐI LƯỢNG TÍNH TOÁN***********");
 
      for(var i=0;i<10;i++)
      {
          if(x[i]<0)
          {
+             console.log("                     **WARNING: Phân bón "+name[i]+" được giải ra giá trị âm, tạm thời sẽ được gán bằng 0, sau khi tính toán xong hãy điều chỉnh lại các loại phân bạn chọn.\n")
              x[i]=0;
          }
          x[i]=math.round(x[i]*1000)/1000;
-         console.log(name[i]);
-         console.log(x[i]+"gram\n");
+         console.log("                     +   "+name[i]);
+         console.log("                     +   "+x[i]+"gram\n");
      }
-console.log("\n****************TỔNG GIÁ TIỀN**************");
+console.log("\n                     ****************TỔNG GIÁ TIỀN**************");
 var money=0;
 for(var i=0;i<10;i++)
 {
     money+=x[i]*100/1000;
 }
-console.log(math.round(money*10)/10 + " USD\n\n")
+console.log("                     "+math.round(money*10)/10 + " USD\n\n")
 var output=new Array(16);
 for(var i=0;i<16;i++)
 {
@@ -170,7 +187,14 @@ for(var i=0;i<16;i++)
     }
     output[i]=math.round(output[i]*1000)/1000;
 }
-
+var predicted_ec=0;
+for(var i=0;i<16;i++)
+{
+    predicted_ec+=output[i]*ec_contribution[i];
+}
+predicted_ec=math.round((0.65*predicted_ec/1000)*10)/10;
+console.log("\n                     ****************HÀM LƯỢNG EC DỰ KIẾN**************");
+console.log("                     *  EC= "+ predicted_ec +" mS/cm \n\n")
 var error=new Array(16);
 for(var i=0;i<16;i++)
 {
@@ -186,25 +210,25 @@ for(var i=0;i<16;i++)
 }
 
 
-console.log("**********************KẾT QUẢ***************************\n")
-console.log("********************************************************");
-console.log("*   CHẤT   *   LT(ppm)  *   KQ(ppm)  *      error(%)   *");
-console.log("********************************************************");
-console.log("* N(NO3-)  *   "+input[0]+"   *   "+output[0]+"     *     "+error[0]+"    *");
-console.log("* N(NH4+)  *   "+input[1]+"   *   "+output[1]+"     *     "+error[1]+"    *");
-console.log("*    P     *   "+input[2]+"   *   "+output[2]+"     *     "+error[2]+"    *");
-console.log("*    K     *   "+input[3]+"   *   "+output[3]+"     *     "+error[3]+"    *");
-console.log("*    Mg    *   "+input[4]+"   *   "+output[4]+"     *     "+error[4]+"    *");
-console.log("*    Ca    *   "+input[5]+"   *   "+output[5]+"     *     "+error[5]+"    *");
-console.log("*    S     *   "+input[6]+"   *   "+output[6]+"     *     "+error[6]+"    *");
-console.log("*    Fe    *   "+input[7]+"   *   "+output[7]+"     *     "+error[7]+"    *");
-console.log("*    Zn    *   "+input[8]+"   *   "+output[8]+"     *     "+error[8]+"    *");
-console.log("*    B     *   "+input[9]+"   *   "+output[9]+"     *     "+error[9]+"    *");
-console.log("*    Mn    *   "+input[10]+"   *   "+output[10]+"     *     "+error[10]+"    *");
-console.log("*    Cu    *   "+input[11]+"   *   "+output[11]+"     *     "+error[11]+"    *");
-console.log("*    Mo    *   "+input[12]+"   *   "+output[12]+"     *     "+error[12]+"    *");
-console.log("*    Na    *   "+input[13]+"   *   "+output[13]+"     *     "+error[13]+"    *");
-console.log("*    Si    *   "+input[14]+"   *   "+output[14]+"     *     "+error[14]+"    *");
-console.log("*    Cl    *   "+input[15]+"   *   "+output[15]+"     *     "+error[15]+"    *");
-console.log("********************************************************");
+console.log("**********************************KẾT QUẢ*********************************\n")
+console.log("**************************************************************************");
+console.log("*     CHẤT     *       LT(ppm)      *   KQ(ppm)  *      error(%)   *");
+console.log("**************************************************************************");
+console.log("*   N(NO3-)    *       "+input[0]+"       *     "+output[0]+"       *     "+error[0]+"    *");
+console.log("*   N(NH4+)    *       "+input[1]+"       *     "+output[1]+"       *     "+error[1]+"    *");
+console.log("*      P       *       "+input[2]+"       *     "+output[2]+"       *     "+error[2]+"    *");
+console.log("*      K       *       "+input[3]+"       *     "+output[3]+"       *     "+error[3]+"    *");
+console.log("*      Mg      *       "+input[4]+"       *     "+output[4]+"       *     "+error[4]+"    *");
+console.log("*      Ca      *       "+input[5]+"       *     "+output[5]+"       *     "+error[5]+"    *");
+console.log("*      S       *       "+input[6]+"       *     "+output[6]+"       *     "+error[6]+"    *");
+console.log("*      Fe      *       "+input[7]+"       *     "+output[7]+"       *     "+error[7]+"    *");
+console.log("*      Zn      *       "+input[8]+"       *     "+output[8]+"       *     "+error[8]+"    *");
+console.log("*      B       *       "+input[9]+"       *     "+output[9]+"       *     "+error[9]+"    *");
+console.log("*      Mn      *       "+input[10]+"       *     "+output[10]+"       *     "+error[10]+"    *");
+console.log("*      Cu      *       "+input[11]+"       *     "+output[11]+"       *     "+error[11]+"    *");
+console.log("*      Mo      *       "+input[12]+"       *     "+output[12]+"       *     "+error[12]+"    *");
+console.log("*      Na      *       "+input[13]+"       *     "+output[13]+"       *     "+error[13]+"    *");
+console.log("*      Si      *       "+input[14]+"       *     "+output[14]+"       *     "+error[14]+"    *");
+console.log("*      Cl      *       "+input[15]+"       *     "+output[15]+"       *     "+error[15]+"    *");
+console.log("**************************************************************************");
 
