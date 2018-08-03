@@ -357,3 +357,274 @@ if(sobon==2)
     console.log("***********Phân ở bồn B là:\n "+name[0]+" : "+khoiLuongCan[0]/1000+"kg\n "+name[1]+" : "+khoiLuongCan[1]/1000+"kg\n"+name[3]+" : "+khoiLuongCan[3]/1000+"kg\n"+name[6]+" : "+khoiLuongCan[6]/1000+"kg\n"+name[7]+" : "+khoiLuongCan[7]/1000+"kg\n"+name[9]+" : "+khoiLuongCan[9]/1000+"kg\n Với lượng nước ở bồn B là: "+nuocB+" lít ");
 
 }
+else if(sobon==3)
+{
+    console.log("***********Bạn đã chọn pha 3 bồn***********\n\n")
+    var bonA=new Array();
+    bonA.push(luongNuocCan[2]);
+    bonA.push(luongNuocCan[4]);
+    bonA.push(luongNuocCan[5]);
+    bonA.push(luongNuocCan[8]);
+    var bonB=new Array();
+    bonB.push(luongNuocCan[0]);
+    bonB.push(luongNuocCan[1]);
+    bonB.push(luongNuocCan[3]);
+    bonB.push(luongNuocCan[6]);
+    bonB.push(luongNuocCan[7]);
+    bonB.push(luongNuocCan[9]);
+    var bonC=new Array();
+    var indexMaxA1 = bonA.indexOf(math.max(bonA));//index của giá trị lớn nhất của A
+    //tìm index của đứa lớn nhất trong luongnuoccan để loại nó đi khi xuất ra
+    var indexmain=luongNuocCan.indexOf(math.max(bonA));
+    bonC.push(bonA[indexMaxA1]);//bồn C giờ chứa chất có lượng nước max từ A
+    if (indexMaxA1 > -1) {
+        bonA.splice(indexMaxA1, 1);
+    }
+    var nuocA=math.max(bonA);
+    var nuocB=math.max(bonB);
+    var nuocC=bonC[0];
+    console.log("Phân ở bồn A là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==2||i==4||i==5||i==8)&&(i!=indexmain))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn A là: "+nuocA+" lít");
+
+    console.log("Phân ở bồn B là:");
+    for(var i=0;i<10;i++)
+    {
+        if(i==0||i==1||i==3||i==6||i==7||i==9)
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn B là: "+nuocB+" lít");
+
+
+    console.log("Phân ở bồn C là:");
+    console.log(name[indexmain]+" : "+khoiLuongCan[indexmain]/1000+" kg");
+    console.log("Với lượng nước bồn C là: "+nuocC+" lít");
+
+}
+else if(sobon==4)
+{
+    console.log("***********Bạn đã chọn pha 4 bồn***********\n\n")
+    var bonA=new Array();
+    bonA.push(luongNuocCan[2]);
+    bonA.push(luongNuocCan[4]);
+    bonA.push(luongNuocCan[5]);
+    bonA.push(luongNuocCan[8]);
+    var bonB=new Array();
+    bonB.push(luongNuocCan[0]);
+    bonB.push(luongNuocCan[1]);
+    bonB.push(luongNuocCan[3]);
+    bonB.push(luongNuocCan[6]);
+    bonB.push(luongNuocCan[7]);
+    bonB.push(luongNuocCan[9]);
+    var bonC=new Array();
+    var bonD=new Array();
+    var indexMaxA1 = bonA.indexOf(math.max(bonA));//index của giá trị lớn nhất của A
+    var indexMaxB1 = bonB.indexOf(math.max(bonB));//index của giá trị lớn nhất của B
+    var indexmain1=luongNuocCan.indexOf(math.max(bonA));
+    var indexmain2=luongNuocCan.indexOf(math.max(bonB));
+    bonC.push(bonA[indexMaxA1]);//bồn C giờ chứa chất có lượng nước max từ A
+    if (indexMaxA1 > -1) {
+        bonA.splice(indexMaxA1, 1);
+    }
+    bonD.push(bonB[indexMaxB1]);//bồn D giờ chứa chất có lượng nước max từ B
+    if (indexMaxB1 > -1) {
+        bonB.splice(indexMaxB1, 1);
+    }
+
+    var nuocA=math.max(bonA);
+    var nuocB=math.max(bonB);
+    var nuocC=bonC[0];
+    var nuocD=bonD[0];
+    console.log("Phân ở bồn A là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==2||i==4||i==5||i==8)&&(i!=indexmain1))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn A là: "+nuocA+" lít");
+
+    console.log("Phân ở bồn B là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==0||i==1||i==3||i==6||i==7||i==9)&&(i!=indexmain2))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn B là: "+nuocB+" lít");
+
+
+    console.log("Phân ở bồn C là:");
+    console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
+    console.log("Với lượng nước bồn C là: "+nuocC+" lít");
+    console.log("Phân ở bồn D là:");
+    console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
+    console.log("Với lượng nước bồn D là: "+nuocD+" lít");
+
+}
+else if(sobon==5)
+{
+    console.log("***********Bạn đã chọn pha 5 bồn***********\n\n")
+    var bonA=new Array();
+    bonA.push(luongNuocCan[2]);
+    bonA.push(luongNuocCan[4]);
+    bonA.push(luongNuocCan[5]);
+    bonA.push(luongNuocCan[8]);
+    var bonB=new Array();
+    bonB.push(luongNuocCan[0]);
+    bonB.push(luongNuocCan[1]);
+    bonB.push(luongNuocCan[3]);
+    bonB.push(luongNuocCan[6]);
+    bonB.push(luongNuocCan[7]);
+    bonB.push(luongNuocCan[9]);
+    var bonC=new Array();
+    var bonD=new Array();
+    var bonE=new Array();
+    var indexMaxA1 = bonA.indexOf(math.max(bonA));//index của giá trị lớn nhất của A
+    var indexMaxB1 = bonB.indexOf(math.max(bonB));//index của giá trị lớn nhất của B
+    var indexmain1=luongNuocCan.indexOf(math.max(bonA));
+    var indexmain2=luongNuocCan.indexOf(math.max(bonB));
+    bonC.push(bonA[indexMaxA1]);//bồn C giờ chứa chất có lượng nước max từ A
+    if (indexMaxA1 > -1) {
+        bonA.splice(indexMaxA1, 1);
+    }
+    var indexmain3=luongNuocCan.indexOf(math.max(bonA));
+    bonD.push(bonB[indexMaxB1]);//bồn D giờ chứa chất có lượng nước max từ B
+    if (indexMaxB1 > -1) {
+        bonB.splice(indexMaxB1, 1);
+    }
+    var indexMaxA2=bonA.indexOf(math.max(bonA));
+    bonE.push(bonA[indexMaxA2]);
+    if (indexMaxA2 > -1) {//xóa thằng cao nhì
+        bonA.splice(indexMaxA2, 1);
+    }
+    var nuocA=math.max(bonA);
+    var nuocB=math.max(bonB);
+    var nuocC=bonC[0];
+    var nuocD=bonD[0];
+    var nuocE=bonE[0];
+    console.log("Phân ở bồn A là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==2||i==4||i==5||i==8)&&(i!=indexmain1)&&(i!=indexmain3))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn A là: "+nuocA+" lít\n");
+
+    console.log("Phân ở bồn B là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==0||i==1||i==3||i==6||i==7||i==9)&&(i!=indexmain2))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn B là: "+nuocB+" lít\n");
+
+
+    console.log("Phân ở bồn C là:");
+    console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
+    console.log("Với lượng nước bồn C là: "+nuocC+" lít\n");
+    console.log("Phân ở bồn D là:");
+    console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
+    console.log("Với lượng nước bồn D là: "+nuocD+" lít\n");
+    console.log("Phân ở bồn E là:");
+    console.log(name[indexmain3]+" : "+khoiLuongCan[indexmain3]/1000+" kg");
+    console.log("Với lượng nước bồn E là: "+nuocE+" lít");    
+}
+else if(sobon==6)
+{
+    console.log("***********Bạn đã chọn pha 5 bồn***********\n\n")
+    var bonA=new Array();
+    bonA.push(luongNuocCan[2]);
+    bonA.push(luongNuocCan[4]);
+    bonA.push(luongNuocCan[5]);
+    bonA.push(luongNuocCan[8]);
+    var bonB=new Array();
+    bonB.push(luongNuocCan[0]);
+    bonB.push(luongNuocCan[1]);
+    bonB.push(luongNuocCan[3]);
+    bonB.push(luongNuocCan[6]);
+    bonB.push(luongNuocCan[7]);
+    bonB.push(luongNuocCan[9]);
+    var bonC=new Array();
+    var bonD=new Array();
+    var bonE=new Array();
+    var bonF=new Array();
+    var indexMaxA1 = bonA.indexOf(math.max(bonA));//index của giá trị lớn nhất của A
+    var indexMaxB1 = bonB.indexOf(math.max(bonB));//index của giá trị lớn nhất của B
+    var indexmain1=luongNuocCan.indexOf(math.max(bonA));
+    var indexmain2=luongNuocCan.indexOf(math.max(bonB));
+    bonC.push(bonA[indexMaxA1]);//bồn C giờ chứa chất có lượng nước max từ A
+    if (indexMaxA1 > -1) {
+        bonA.splice(indexMaxA1, 1);
+    }
+    var indexmain3=luongNuocCan.indexOf(math.max(bonA));
+    bonD.push(bonB[indexMaxB1]);//bồn D giờ chứa chất có lượng nước max từ B
+    if (indexMaxB1 > -1) {
+        bonB.splice(indexMaxB1, 1);
+    }
+    var indexmain4=luongNuocCan.indexOf(math.max(bonB));
+    var indexMaxA2=bonA.indexOf(math.max(bonA));
+    var indexMaxB2=bonB.indexOf(math.max(bonB));
+    bonE.push(bonA[indexMaxA2]);
+    if (indexMaxA2 > -1) {//xóa thằng cao nhì
+        bonA.splice(indexMaxA2, 1);
+    }
+    bonF.push(bonB[indexMaxB2]);
+    if (indexMaxB2 > -1) {//xóa thằng cao nhì
+        bonB.splice(indexMaxB2, 1);
+    }
+    var nuocA=math.max(bonA);
+    var nuocB=math.max(bonB);
+    var nuocC=bonC[0];
+    var nuocD=bonD[0];
+    var nuocE=bonE[0];
+    var nuocF=bonF[0];
+    console.log("Phân ở bồn A là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==2||i==4||i==5||i==8)&&(i!=indexmain1)&&(i!=indexmain3))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn A là: "+nuocA+" lít\n");
+
+    console.log("Phân ở bồn B là:");
+    for(var i=0;i<10;i++)
+    {
+        if((i==0||i==1||i==3||i==6||i==7||i==9)&&(i!=indexmain2)&&(i!=indexmain4))
+        {
+            console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
+        }
+    }
+    console.log("Với lượng nước bồn B là: "+nuocB+" lít\n");
+    console.log("Phân ở bồn C là:");
+    console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
+    console.log("Với lượng nước bồn C là: "+nuocC+" lít\n");
+    console.log("Phân ở bồn D là:");
+    console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
+    console.log("Với lượng nước bồn D là: "+nuocD+" lít\n");
+    console.log("Phân ở bồn E là:");
+    console.log(name[indexmain3]+" : "+khoiLuongCan[indexmain3]/1000+" kg");
+    console.log("Với lượng nước bồn E là: "+nuocE+" lít\n");
+    console.log("Phân ở bồn F là:");
+    console.log(name[indexmain4]+" : "+khoiLuongCan[indexmain4]/1000+" kg");
+    console.log("Với lượng nước bồn F là: "+nuocF+" lít\n");    
+}
+//3 bồn: bỏ chất lít cao nhất của bồn A qua bồn C
+//4 bồn: bỏ chất lít cao nhất của A qua C, B qua D
+//5 bồn: bỏ chất lít cao nhất của A qua C, B cao nhất qua D, cao nhì qua E
