@@ -247,7 +247,7 @@ console.log("******Trong đó bồn A gồm những chất sau******");
 console.log(name[2]+"\n"+name[4]+"\n"+name[5]+"\n"+name[8]+"\n");
 console.log("******Trong đó bồn B gồm những chất sau******");
 console.log(name[0]+"\n"+name[1]+"\n"+name[3]+"\n"+name[6]+"\n"+name[7]+"\n"+name[9]+"\n");
-var sobon_nhap = readline.question("************Còn bạn muốn sử dụng bao nhiêu bồn?*********\n");
+var sobon_nhap = readline.question("************Còn bạn muốn sử dụng bao nhiêu bồn?(>=2,max là 6)*********\n");
 var sobon=parseInt(sobon_nhap);
 var option = readline.question("*********************Bạn muốn nhập theo option nào(1/2) ?\n    1.Theo số cây\n    2.Theo mật độ cây trên hecta và diện tích trồng\n ");
 var opt=parseInt(option);
@@ -294,7 +294,7 @@ percent[8]=parseFloat(phan8);
 var phan9 = readline.question("*********************Nhập % so với độ bão hòa của phân "+name[9]+"\n");
 percent[9]=parseFloat(phan9);
 var litMotBon=100.0;
-var baohoa=new Array(10);//nồng độ bão hòa gốc
+var baohoa=new Array(10);//nồng độ bão hòa gốc của 10 loại phân
 baohoa[0]=200.1;
 baohoa[1]=200.1;
 baohoa[2]=200.1;
@@ -305,25 +305,25 @@ baohoa[6]=200.1;
 baohoa[7]=200.1;
 baohoa[8]=200.1;
 baohoa[9]=200.1;
-var nongdo=new Array(10) //Nồng độ thực tế
+var nongdo=new Array(10) //Nồng độ thực của 10 loại phân
 for(var i=0;i<10;i++)
 {
     nongdo[i]=percent[i]*baohoa[i]/100;
 }
 //tính số lượng phân cần
 var khoiLuongCan=new Array(10);
-if(opt==1)//dùng socay
+if(opt==1)//option 1: dùng socay
 {
     for(var i=0;i<10;i++)
     {
-        khoiLuongCan[i]=x[i]*soCay;
+        khoiLuongCan[i]=x[i]*soCay/50;
     }
 }
-else//dùng socay1
+else//option 2: dùng socay1
 {
     for(var i=0;i<10;i++)
     {
-        khoiLuongCan[i]=x[i]*soCay1;
+        khoiLuongCan[i]=x[i]*soCay1/50;
     }
 }
 var luongNuocCan=new Array(10);//tính được lượng nước cần cho mỗi loại cây
@@ -332,13 +332,10 @@ for (var i=0;i<10;i++)
     luongNuocCan[i]=((khoiLuongCan[i]*100)/nongdo[i])/1000;
     luongNuocCan[i]=math.round(luongNuocCan[i]*1000)/1000;
 }
-
-
-
 //xuất trường hợp 2 bồn
 if(sobon==2)
 {
-    console.log("***********Bạn đã chọn pha 2 bồn***********\n\n")
+    console.log("***********Bạn đã chọn pha 2 bồn, đây là số bồn mặc định***********\n\n")
     var bonA=new Array();
     bonA.push(luongNuocCan[2]);
     bonA.push(luongNuocCan[4]);
@@ -546,7 +543,7 @@ else if(sobon==5)
 }
 else if(sobon==6)
 {
-    console.log("***********Bạn đã chọn pha 5 bồn***********\n\n")
+    console.log("***********Bạn đã chọn pha 6 bồn***********\n\n")
     var bonA=new Array();
     bonA.push(luongNuocCan[2]);
     bonA.push(luongNuocCan[4]);
@@ -627,4 +624,5 @@ else if(sobon==6)
 }
 //3 bồn: bỏ chất lít cao nhất của bồn A qua bồn C
 //4 bồn: bỏ chất lít cao nhất của A qua C, B qua D
-//5 bồn: bỏ chất lít cao nhất của A qua C, B cao nhất qua D, cao nhì qua E
+//5 bồn: bỏ chất lít cao nhất của A qua C, B cao nhất qua D, cao nhì của A qua E
+//6 bồn: bỏ chất lít cao nhất của A qua C, B cao nhất qua D, cao nhì của A qua E, cao nhì của B qua F
