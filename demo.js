@@ -293,6 +293,8 @@ var phan8 = readline.question("*********************Nhập % so với độ bão
 percent[8]=parseFloat(phan8);
 var phan9 = readline.question("*********************Nhập % so với độ bão hòa của phân "+name[9]+"\n");
 percent[9]=parseFloat(phan9);
+var input3 = readline.question("*********************Nhập số ngày bạn muốn sử dụng phân \n");
+var songay=parseFloat(input3);
 var litMotBon=100.0;
 var baohoa=new Array(10);//nồng độ bão hòa gốc của 10 loại phân
 baohoa[0]=200.1;
@@ -311,6 +313,20 @@ for(var i=0;i<10;i++)
     nongdo[i]=percent[i]*baohoa[i]/100;
 }
 //tính số lượng phân cần
+var Vtong;//tính thể tích tổng
+if(opt==1)
+{
+    Vtong=soCay*songay*2;//hardcode: 1 cây cần 2 lít 1 ngày
+}
+else
+{
+    Vtong=soCay1*songay*2;//hardcode: 1 cây cần 2 lít 1 ngày
+
+}
+var tilehut=5;
+var lit1Bon=(parseFloat(Vtong)/sobon)*tilehut/1000;//hardcode: 0.005 là tỉ lệ hút
+
+
 var khoiLuongCan=new Array(10);
 if(opt==1)//option 1: dùng socay
 {
@@ -332,7 +348,7 @@ for (var i=0;i<10;i++)
     luongNuocCan[i]=((khoiLuongCan[i]*100)/nongdo[i])/1000;
     luongNuocCan[i]=math.round(luongNuocCan[i]*1000)/1000;
 }
-//xuất trường hợp 2 bồn
+//chia bồn
 if(sobon==2)
 {
     console.log("***********Bạn đã chọn pha 2 bồn, đây là số bồn mặc định***********\n\n")
@@ -350,9 +366,31 @@ if(sobon==2)
     bonB.push(luongNuocCan[9]);
     var nuocA=math.max(bonA);
     var nuocB=math.max(bonB);
-    console.log("***********Phân ở bồn A là:\n "+name[2]+" : "+khoiLuongCan[2]/1000+"kg\n "+name[4]+" : "+khoiLuongCan[4]/1000+"kg\n"+name[5]+" : "+khoiLuongCan[5]/1000+"kg\n"+name[8]+" : "+khoiLuongCan[8]/1000+"kg\n Với lượng nước ở bồn A là: "+nuocA+" lít ");
-    console.log("***********Phân ở bồn B là:\n "+name[0]+" : "+khoiLuongCan[0]/1000+"kg\n "+name[1]+" : "+khoiLuongCan[1]/1000+"kg\n"+name[3]+" : "+khoiLuongCan[3]/1000+"kg\n"+name[6]+" : "+khoiLuongCan[6]/1000+"kg\n"+name[7]+" : "+khoiLuongCan[7]/1000+"kg\n"+name[9]+" : "+khoiLuongCan[9]/1000+"kg\n Với lượng nước ở bồn B là: "+nuocB+" lít ");
-
+    var maxarr=new Array();
+    maxarr.push(nuocA);
+    maxarr.push(nuocB);
+    var nuocmax=math.max(maxarr);
+    var nuocxuat;
+    if(nuocmax>lit1Bon)
+    {
+        tilehut=parseFloat(nuocmax*sobon)/Vtong;
+        if((math.round(tilehut)-tilehut)>0)//nếu >0.5
+        {
+            tilehut=math.round(tilehut);
+        }
+        else
+        {
+            tilehut=math.round(tilehut)+1;
+        }
+        nuocxuat=parseFloat(Vtong*tilehut)/sobon;
+    }
+    else
+    {
+        nuocxuat=lit1Bon;
+    }
+    console.log("***********Phân ở bồn A là:\n "+name[2]+" : "+khoiLuongCan[2]/1000+"kg\n "+name[4]+" : "+khoiLuongCan[4]/1000+"kg\n"+name[5]+" : "+khoiLuongCan[5]/1000+"kg\n"+name[8]+" : "+khoiLuongCan[8]/1000+"kg\n Với lượng nước ở bồn A là: "+nuocxuat+" lít ");
+    console.log("***********Phân ở bồn B là:\n "+name[0]+" : "+khoiLuongCan[0]/1000+"kg\n "+name[1]+" : "+khoiLuongCan[1]/1000+"kg\n"+name[3]+" : "+khoiLuongCan[3]/1000+"kg\n"+name[6]+" : "+khoiLuongCan[6]/1000+"kg\n"+name[7]+" : "+khoiLuongCan[7]/1000+"kg\n"+name[9]+" : "+khoiLuongCan[9]/1000+"kg\n Với lượng nước ở bồn B là: "+nuocxuat+" lít ");
+    
 }
 else if(sobon==3)
 {
@@ -380,6 +418,29 @@ else if(sobon==3)
     var nuocA=math.max(bonA);
     var nuocB=math.max(bonB);
     var nuocC=bonC[0];
+    var maxarr=new Array();
+    maxarr.push(nuocA);
+    maxarr.push(nuocB);
+    maxarr.push(nuocC);
+    var nuocmax=math.max(maxarr);
+    var nuocxuat;
+    if(nuocmax>lit1Bon)
+    {
+        tilehut=parseFloat(nuocmax*sobon)/Vtong;
+        if((math.round(tilehut)-tilehut)>0)//nếu >0.5
+        {
+            tilehut=math.round(tilehut);
+        }
+        else
+        {
+            tilehut=math.round(tilehut)+1;
+        }
+        nuocxuat=parseFloat(Vtong*tilehut)/sobon;
+    }
+    else
+    {
+        nuocxuat=lit1Bon;
+    }
     console.log("Phân ở bồn A là:");
     for(var i=0;i<10;i++)
     {
@@ -388,7 +449,7 @@ else if(sobon==3)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn A là: "+nuocA+" lít");
+    console.log("Với lượng nước bồn A là: "+nuocxuat+" lít");
 
     console.log("Phân ở bồn B là:");
     for(var i=0;i<10;i++)
@@ -398,12 +459,12 @@ else if(sobon==3)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn B là: "+nuocB+" lít");
+    console.log("Với lượng nước bồn B là: "+nuocxuat+" lít");
 
 
     console.log("Phân ở bồn C là:");
     console.log(name[indexmain]+" : "+khoiLuongCan[indexmain]/1000+" kg");
-    console.log("Với lượng nước bồn C là: "+nuocC+" lít");
+    console.log("Với lượng nước bồn C là: "+nuocxuat+" lít");
 
 }
 else if(sobon==4)
@@ -440,6 +501,30 @@ else if(sobon==4)
     var nuocB=math.max(bonB);
     var nuocC=bonC[0];
     var nuocD=bonD[0];
+    var maxarr=new Array();
+    maxarr.push(nuocA);
+    maxarr.push(nuocB);
+    maxarr.push(nuocC);
+    maxarr.push(nuocD);
+    var nuocmax=math.max(maxarr);
+    var nuocxuat;
+    if(nuocmax>lit1Bon)
+    {
+        tilehut=parseFloat(nuocmax*sobon)/Vtong;
+        if((math.round(tilehut)-tilehut)>0)//nếu >0.5
+        {
+            tilehut=math.round(tilehut);
+        }
+        else
+        {
+            tilehut=math.round(tilehut)+1;
+        }
+        nuocxuat=parseFloat(Vtong*tilehut)/sobon;
+    }
+    else
+    {
+        nuocxuat=lit1Bon;
+    }
     console.log("Phân ở bồn A là:");
     for(var i=0;i<10;i++)
     {
@@ -448,7 +533,7 @@ else if(sobon==4)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn A là: "+nuocA+" lít");
+    console.log("Với lượng nước bồn A là: "+nuocxuat+" lít");
 
     console.log("Phân ở bồn B là:");
     for(var i=0;i<10;i++)
@@ -458,15 +543,16 @@ else if(sobon==4)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn B là: "+nuocB+" lít");
+    console.log("Với lượng nước bồn B là: "+nuocxuat+" lít");
 
 
     console.log("Phân ở bồn C là:");
     console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
-    console.log("Với lượng nước bồn C là: "+nuocC+" lít");
+    console.log("Với lượng nước bồn C là: "+nuocxuat+" lít");
     console.log("Phân ở bồn D là:");
     console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
-    console.log("Với lượng nước bồn D là: "+nuocD+" lít");
+    console.log("Với lượng nước bồn D là: "+nuocxuat+" lít");
+
 
 }
 else if(sobon==5)
@@ -510,6 +596,31 @@ else if(sobon==5)
     var nuocC=bonC[0];
     var nuocD=bonD[0];
     var nuocE=bonE[0];
+    var maxarr=new Array();
+    maxarr.push(nuocA);
+    maxarr.push(nuocB);
+    maxarr.push(nuocC);
+    maxarr.push(nuocD);
+    maxarr.push(nuocE);
+    var nuocmax=math.max(maxarr);
+    var nuocxuat;
+    if(nuocmax>lit1Bon)
+    {
+        tilehut=parseFloat(nuocmax*sobon)/Vtong;
+        if((math.round(tilehut)-tilehut)>0)//nếu >0.5
+        {
+            tilehut=math.round(tilehut);
+        }
+        else
+        {
+            tilehut=math.round(tilehut)+1;
+        }
+        nuocxuat=parseFloat(Vtong*tilehut)/sobon;
+    }
+    else
+    {
+        nuocxuat=lit1Bon;
+    }
     console.log("Phân ở bồn A là:");
     for(var i=0;i<10;i++)
     {
@@ -518,7 +629,7 @@ else if(sobon==5)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn A là: "+nuocA+" lít\n");
+    console.log("Với lượng nước bồn A là: "+nuocxuat+" lít\n");
 
     console.log("Phân ở bồn B là:");
     for(var i=0;i<10;i++)
@@ -528,18 +639,19 @@ else if(sobon==5)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn B là: "+nuocB+" lít\n");
+    console.log("Với lượng nước bồn B là: "+nuocxuat+" lít\n");
 
 
     console.log("Phân ở bồn C là:");
     console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
-    console.log("Với lượng nước bồn C là: "+nuocC+" lít\n");
+    console.log("Với lượng nước bồn C là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn D là:");
     console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
-    console.log("Với lượng nước bồn D là: "+nuocD+" lít\n");
+    console.log("Với lượng nước bồn D là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn E là:");
     console.log(name[indexmain3]+" : "+khoiLuongCan[indexmain3]/1000+" kg");
-    console.log("Với lượng nước bồn E là: "+nuocE+" lít");    
+    console.log("Với lượng nước bồn E là: "+nuocxuat+" lít");    
+
 }
 else if(sobon==6)
 {
@@ -590,6 +702,32 @@ else if(sobon==6)
     var nuocD=bonD[0];
     var nuocE=bonE[0];
     var nuocF=bonF[0];
+    var maxarr=new Array();
+    maxarr.push(nuocA);
+    maxarr.push(nuocB);
+    maxarr.push(nuocC);
+    maxarr.push(nuocD);
+    maxarr.push(nuocE);
+    maxarr.push(nuocF);
+    var nuocmax=math.max(maxarr);
+    var nuocxuat;
+    if(nuocmax>lit1Bon)
+    {
+        tilehut=parseFloat(nuocmax*sobon)/Vtong;
+        if((math.round(tilehut)-tilehut)>0)//nếu >0.5
+        {
+            tilehut=math.round(tilehut);
+        }
+        else
+        {
+            tilehut=math.round(tilehut)+1;
+        }
+        nuocxuat=parseFloat(Vtong*tilehut)/sobon;
+    }
+    else
+    {
+        nuocxuat=lit1Bon;
+    }
     console.log("Phân ở bồn A là:");
     for(var i=0;i<10;i++)
     {
@@ -598,7 +736,7 @@ else if(sobon==6)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn A là: "+nuocA+" lít\n");
+    console.log("Với lượng nước bồn A là: "+nuocxuat+" lít\n");
 
     console.log("Phân ở bồn B là:");
     for(var i=0;i<10;i++)
@@ -608,20 +746,30 @@ else if(sobon==6)
             console.log(name[i]+" : "+khoiLuongCan[i]/1000+" kg");
         }
     }
-    console.log("Với lượng nước bồn B là: "+nuocB+" lít\n");
+    console.log("Với lượng nước bồn B là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn C là:");
     console.log(name[indexmain1]+" : "+khoiLuongCan[indexmain1]/1000+" kg");
-    console.log("Với lượng nước bồn C là: "+nuocC+" lít\n");
+    console.log("Với lượng nước bồn C là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn D là:");
     console.log(name[indexmain2]+" : "+khoiLuongCan[indexmain2]/1000+" kg");
-    console.log("Với lượng nước bồn D là: "+nuocD+" lít\n");
+    console.log("Với lượng nước bồn D là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn E là:");
     console.log(name[indexmain3]+" : "+khoiLuongCan[indexmain3]/1000+" kg");
-    console.log("Với lượng nước bồn E là: "+nuocE+" lít\n");
+    console.log("Với lượng nước bồn E là: "+nuocxuat+" lít\n");
     console.log("Phân ở bồn F là:");
     console.log(name[indexmain4]+" : "+khoiLuongCan[indexmain4]/1000+" kg");
-    console.log("Với lượng nước bồn F là: "+nuocF+" lít\n");    
+    console.log("Với lượng nước bồn F là: "+nuocxuat+" lít\n");  
+
 }
+    console.log("Tỉ lệ hút mặc định là: 5 trên 1000 lít");
+    console.log("Tỉ lệ hút mới là: "+tilehut+" trên 1000 lít");
+    var input2 = readline.question("*********************Bạn muốn pha loãng với tỉ lệ bao nhiêu ?\n");
+    var tilephaloang=parseFloat(input2);
+    var ec_real=predicted_ec/tilephaloang;
+    ec_real=math.round(ec_real*10)/10;
+    console.log("Vậy EC sau pha loãng là :"+ec_real);
+    var songay_real=songay*tilephaloang;
+    console.log("Vậy số ngày thực tế sử dụng phân là :"+songay_real);
 //3 bồn: bỏ chất lít cao nhất của bồn A qua bồn C
 //4 bồn: bỏ chất lít cao nhất của A qua C, B qua D
 //5 bồn: bỏ chất lít cao nhất của A qua C, B cao nhất qua D, cao nhì của A qua E
